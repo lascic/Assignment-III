@@ -1,0 +1,108 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #202d30;
+  background: #f6f6f1;
+  --blue: #2861da;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+.explorer { min-height: 100vh; min-height: 100dvh; max-width: 1480px; margin: 0 auto; padding: 28px 32px 14px; }
+.visualization-heading { text-align: center; }
+.visualization-title { max-width: 1100px; margin: 0 auto; font-size: clamp(24px, 2.1vw, 31px); font-weight: 500; line-height: 1.25; }
+.visualization-subtitle { max-width: 880px; margin: 12px auto 0; color: #75816d; font-size: 13px; line-height: 1.6; }
+.relationship-summary { max-width: 1000px; min-height: 24px; margin: 13px auto 0; color: #2458b3; font-size: 14px; line-height: 1.7; }
+.views { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr); gap: 28px; margin-top: 25px; }
+.relationship-panel { min-width: 0; padding: 18px 18px 12px; border: 1px solid #dce2d6; border-radius: 4px; background: #fffffc80; }
+.globe-panel { min-width: 0; display: flex; flex-direction: column; padding: 18px 0 10px; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.panel-heading h2 { font-size: 14px; line-height: 1.5; font-weight: 500; margin: 0; color: #42523d; }
+.panel-heading > span { color: #75816d; font-size: 12px; font-variant-numeric: tabular-nums; }
+#relationship-chart { display: block; width: 100%; }
+.chart-point { cursor: pointer; }
+.chart-point:focus-visible { outline: none; }
+.chart-note, .globe-caption { margin: 8px 0 0; color: #75816d; font-size: 11px; line-height: 1.7; }
+.globe-caption { text-align: center; }
+#globe-container { position: relative; width: 100%; flex: 1; min-height: 370px; touch-action: none; outline-offset: -4px; }
+#globe-container canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; }
+#globe-container canvas:active { cursor: grabbing; }
+.schooling-status { margin: 18px 0 6px; color: #617155; font-size: 12px; line-height: 1.7; }
+.schooling-status.projection { color: #926520; }
+.method-note { margin: 0; color: #7c8676; font-size: 11px; line-height: 1.7; }
+.year-control { position: relative; width: min(720px, 100%); margin: 24px auto 12px; padding: 12px 18px; border: 1px solid #d7ddd0; border-radius: 4px; background: #fffffcf2; font-size: 13px; }
+.year-control label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+#year-value { color: var(--blue); font-size: 16px; font-variant-numeric: tabular-nums; }
+#year-slider { display: block; width: 100%; height: 20px; margin: 7px 0 3px; padding: 0; appearance: none; background: transparent; }
+#year-slider::-webkit-slider-runnable-track { height: 2px; border-radius: 1px; background: #d7ddcf; }
+#year-slider::-webkit-slider-thumb { appearance: none; box-sizing: border-box; width: 13px; height: 13px; margin-top: -5.5px; border: 3px solid #fffffc; outline: 1px solid var(--blue); border-radius: 50%; background: var(--blue); }
+#year-slider::-moz-range-track { height: 2px; border-radius: 1px; background: #d7ddcf; }
+#year-slider::-moz-range-thumb { box-sizing: border-box; width: 13px; height: 13px; border: 3px solid #fffffc; outline: 1px solid var(--blue); border-radius: 50%; background: var(--blue); }
+.year-bounds { position: relative; height: 15px; margin: 0 6.5px; color: #75816d; font-size: 10px; }
+.year-tick { position: absolute; top: 0; left: var(--position); transform: translateX(-50%); line-height: 1.5; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.year-tick::before { content: ""; position: absolute; top: -14px; left: 50%; width: 1px; height: 4px; background: #aebba7; pointer-events: none; }
+.source-citation { margin-top: 12px; color: #75816d; font-size: 10px; line-height: 1.6; text-align: right; }
+.source-citation p { margin: 3px 0 0; }
+.source-citation a { color: inherit; text-underline-offset: 2px; }
+.source-citation a:hover { color: var(--blue); }
+.tooltip { position: fixed; z-index: 10; width: 310px; max-width: calc(100% - 24px); max-height: calc(100dvh - 24px); overflow-y: auto; padding: 17px; border: 1px solid #cdd7c5; border-radius: 5px; background: #fffffcf7; box-shadow: 0 8px 35px #26352324; backdrop-filter: blur(8px); pointer-events: none; }
+.tooltip:has(.compare-year-button) { pointer-events: auto; }
+.tooltip[hidden] { display: none; }
+.tooltip-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.tooltip-top h2 { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.3; }
+.tooltip-top > span { font-size: 12px; color: #75816d; }
+.tooltip-metric { margin-top: 16px; }
+.tooltip-metric + .tooltip-metric { border-top: 1px solid #e4e8dc; padding-top: 14px; }
+.metric-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.metric-heading h3 { margin: 0; font-size: 12px; font-weight: 500; line-height: 1.5; }
+.metric-heading > span { flex-shrink: 0; color: #85917a; font-size: 10px; }
+.metric-row + .metric-row { margin-top: 10px; }
+.metric-row-label { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 12px; line-height: 1.5; }
+.metric-row-label > span { min-width: 0; overflow-wrap: anywhere; }
+.metric-row-label > strong { flex-shrink: 0; font-weight: 500; color: var(--blue); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.metric-track { height: 7px; margin-top: 5px; overflow: hidden; border-radius: 2px; background: #e6ece1; }
+.metric-bar { display: block; height: 100%; background: var(--blue); }
+.is-reference .metric-bar { background: #91a9c4; }
+.is-reference .metric-row-label > strong { color: #617b9a; }
+.metric-track.is-missing { border: 1px dashed #cad3c2; background: transparent; }
+.tooltip-missing { color: #85917a !important; }
+.tooltip-delta { display: flex; align-items: flex-start; gap: 8px; border-top: 1px solid #e4e8dc; margin: 15px 0 0; padding-top: 12px; font-size: 12px; line-height: 1.6; color: #617155; }
+.baseline-icon { color: var(--blue); font-size: 16px; line-height: 1.2; }
+.missing-match { margin: 14px 0 0; color: #75816d; font-size: 12px; line-height: 1.7; }
+.comparison-action { margin-top: 14px; }
+.comparison-action > span { display: block; margin-bottom: 6px; font-size: 10px; line-height: 1.6; color: #75816d; }
+.compare-year-button { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border: 1px solid #cbd9f3; border-radius: 3px; background: #e8edf7; color: var(--blue); font-size: 12px; line-height: 1.5; text-align: left; }
+.compare-year-button:hover { background: #dce6f8; border-color: #9bb7ec; }
+.no-shared-year { margin: 12px 0 0; font-size: 11px; line-height: 1.6; color: #75816d; }
+#loading { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; font-size: 13px; color: #75816d; }
+#loading[hidden] { display: none; }
+.error-state { max-width: 340px; margin: auto; padding: 24px; text-align: center; font-size: 13px; line-height: 1.8; }
+.error-state a { color: var(--blue); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+@media (max-width: 1000px) { .views { grid-template-columns: minmax(0,1.3fr) minmax(280px,1fr); gap: 18px; } }
+@media (max-width: 760px) { .views { grid-template-columns: 1fr; gap: 20px; } #globe-container { flex: none; height: 320px; min-height: 320px; } .globe-panel { padding-top: 0; } }
+@media (max-width: 640px) {
+  .explorer { padding: 22px 14px 12px; }
+  .visualization-title { font-size: 23px; }
+  .visualization-subtitle { font-size: 12px; }
+  .relationship-summary { font-size: 13px; }
+  .views { margin-top: 20px; }
+  .relationship-panel { padding: 14px 10px 12px; }
+  .year-control { padding: 11px 14px; margin-top: 18px; }
+  .tooltip { width: 285px; padding: 15px; }
+}
+@media (max-height: 500px) {
+  .tooltip { padding: 12px; }
+  .tooltip-top h2 { font-size: 16px; line-height: 1.25; }
+  .tooltip-metric { margin-top: 10px; }
+  .tooltip-metric + .tooltip-metric { padding-top: 9px; }
+  .metric-heading { margin-bottom: 6px; }
+  .metric-heading h3 { font-size: 11px; line-height: 1.4; }
+  .metric-row + .metric-row { margin-top: 6px; }
+  .metric-track { height: 5px; margin-top: 3px; }
+  .tooltip-delta { margin-top: 10px; padding-top: 8px; font-size: 11px; line-height: 1.5; }
+}

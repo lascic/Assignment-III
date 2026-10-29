@@ -1,0 +1,22 @@
+Bundled browser libraries (no runtime CDN dependency)
+
+Three.js 0.180.0 (MIT)
+https://github.com/mrdoob/three.js/tree/r180
+Files: three.module.js, three.core.js, OrbitControls.js
+License: three.LICENSE
+
+d3-array 3.2.4 (ISC)
+https://github.com/d3/d3-array/tree/v3.2.4
+Files: d3-array.min.js
+License: d3-array.LICENSE
+
+d3-geo 3.1.1 (ISC)
+https://github.com/d3/d3-geo/tree/v3.1.1
+Files: d3-geo.min.js
+License: d3-geo.LICENSE
+
+Geographic boundaries: Natural Earth 1:50m admin 0 countries (public domain)
+https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_0_countries.geojson
+https://www.naturalearthdata.com/about/terms-of-use/
+Downloaded 2026-10-29, compacted by scripts/prepare-geography.py.
+Boundaries reflect Natural Earth's de facto view and are used for all years.

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f6f1">
+  <meta name="description" content="Explore whether countries with more years of schooling have higher literacy rates, using exact country-and-year matches in linked scatterplot and Three.js globe views.">
+  <title>Schooling and Literacy — An International Comparison</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+  <script src="./vendor/d3-array.min.js" defer></script>
+  <script src="./vendor/d3-geo.min.js" defer></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="explorer" aria-labelledby="visualization-title" aria-describedby="visualization-subtitle">
+    <header class="visualization-heading">
+      <h1 id="visualization-title" class="visualization-title">Do countries with more years of schooling have higher literacy rates?</h1>
+      <p id="visualization-subtitle" class="visualization-subtitle">Each dot pairs schooling and literacy for the same country and year. Hover over a dot to zoom in on its country; move away to zoom back out. Use the year slider to compare snapshots over time.</p>
+      <p id="relationship-summary" class="relationship-summary" aria-live="polite">Loading matched observations…</p>
+    </header>
+    <div class="views">
+      <section class="relationship-panel" aria-label="Relationship between schooling and literacy">
+        <div class="panel-heading"><h2>Schooling vs. literacy</h2><span id="chart-year">2010</span></div>
+        <svg id="relationship-chart" role="img" aria-label="Scatterplot of average years of schooling and adult literacy rates"></svg>
+        <p id="sample-note" class="chart-note"></p>
+      </section>
+      <section class="globe-panel" aria-label="Geography of the matched observations">
+        <div class="panel-heading"><h2>The same countries on the globe</h2></div>
+        <div id="globe-container" tabindex="0" role="region" aria-label="3D globe of countries with matching schooling and literacy data. Hover to inspect both measures and compare with China. Drag to rotate, scroll to zoom, or use arrow keys.">
+          <div id="loading" role="status">Loading datasets…</div>
+        </div>
+        <p class="globe-caption">Blue: higher literacy · Yellow: lower literacy<br>Grey: no exact schooling–literacy match</p>
+      </section>
+    </div>
+    <p id="schooling-status" class="schooling-status"></p>
+    <p class="method-note">Schooling covers ages 15–64; literacy generally covers ages 15+. Country coverage changes between years. The association does not establish causation.</p>
+    <div class="year-control">
+      <label for="year-slider">Year <output id="year-value" for="year-slider">2010</output></label>
+      <input id="year-slider" type="range" min="1950" max="2020" value="2010" step="1" aria-label="Observation year" aria-valuetext="2010" disabled>
+      <div id="year-ticks" class="year-bounds" aria-hidden="true"></div>
+    </div>
+    <footer class="source-citation" aria-label="Data sources">
+      <p>Our World in Data. <a href="https://ourworldindata.org/grapher/literate-and-illiterate-world-population" target="_blank" rel="noopener noreferrer">“Literate and Illiterate World Population.”</a> Accessed October 29, 2026.</p>
+      <p>Our World in Data. <a href="https://ourworldindata.org/grapher/mean-years-of-schooling-long-run?tab=discrete-bar&amp;time=latest" target="_blank" rel="noopener noreferrer">“Average Years of Schooling.”</a> Accessed October 29, 2026.</p>
+    </footer>
+    <div id="country-tooltip" class="tooltip" role="region" aria-label="Country schooling and literacy comparison" tabindex="-1" hidden></div>
+  </main>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <noscript><p class="error-state">This visualization requires JavaScript.</p></noscript>
+</body>
+</html>
